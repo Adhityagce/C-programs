@@ -1,0 +1,103 @@
+#include<stdio.h>
+#include<conio.h>
+void main()
+{
+char buff[100],ch;
+char key[50][50]={"void","main","if","char","while","int","clrscr",
+"printf", "auto","const","double","float","short","struct",
+ "unsigned","break","continue","else","for","long","signed",
+ "switch","case","default","enum","goto","register","sizeof",
+ "typedef","volatile","do","extern","return","static"};
+int i,j,c;
+int flag;
+FILE *f1,*f2;
+clrscr();
+f1=fopen("maniS.c","read");
+f2=fopen("mk.c","write");
+while(c==1 || (ch=fgetc(f1))!=EOF)
+{
+ c=0;
+// TO IDENFIFY THE KEYWORD AND IDENTIFIER:
+ if(ch=='_' ||isalpha(ch))
+ {
+flag=0;
+for(i=0;isalnum(ch);i++)
+{
+ buff[i]=ch;
+ ch=fgetc(f1);
+}
+buff[i]='\0';
+for(i=0;i<34;i++)
+{
+ if((strcmp(buff,key[i]))==0)
+ {
+flag=1;
+ break;
+ }
+}
+if(flag==1)
+{
+ fprintf(f2,"%s is a keyword\n",buff);
+ printf("%s is a keyword\n",buff);
+}
+else
+{
+ fprintf(f2,"%s is an identifier\n",buff);
+ printf("%s is an identifier\n",buff);
+}
+if(ch=='+' || ch=='*' || ch=='>' || ch=='<' || ch=='!'|| ch=='-'|| 
+ch=='/'|| ch=='='||ch=='^') 
+c=1;
+ }
+// TO IDENTIFY THE OPERATOR:
+else if(ch=='+' || ch=='-' || ch=='*'|| ch=='>'|| ch=='<' ||ch=='!' || 
+ch=='/'|| ch=='^'|| ch=='=')
+ {
+i=0;
+do
+{
+ 
+ buff[i++]=ch;
+ ch=fgetc(f1);
+}while(ch=='=');
+buff[i]='\0';
+if(isalnum(ch)|| ch=='_' )
+c=1;
+printf("%s\is an operator \n",buff);
+fprintf(f2,"%s is an operator\n",buff);
+ }
+ 
+// TO IDENTIFY THE CONSTANT:
+ else if(isdigit(ch))
+ {
+ j=0;
+do
+{
+ buff[j++]=ch;
+ ch=fgetc(f1);
+}while(isdigit(ch) || ch=='.');
+buff[j]='\0';
+fprintf(f2,"%s is a constant\n",buff);
+printf("%s is a constant\n",buff);
+if(isalpha(ch)||ch=='_')
+c=1;
+ }
+ // TO IDENTIFY THE STRING LITRALS:
+ else if(ch=='\"')
+ {
+ i=0;
+ ch=fgetc(f1);
+ do
+ {
+ buff[i++]=ch;
+ ch=fgetc(f1);
+ }while(ch==isalnum() || ch=='%' || ch==isdigit() || ch!='\"');
+ buff[i]='\0';
+ fprintf(f2,"%s is a string litral\n",buff);
+ printf("%s is a string litral\n",buff);
+ }
+}
+fclose(f1);
+fclose(f2);
+getch();
+}
