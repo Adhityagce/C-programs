@@ -1,0 +1,12 @@
+#include <stdio.h>
+void main()
+{
+  int n,k;
+   printf("enter the number:");
+  scanf("%d",&n);
+   k=n&1;
+   if(k==0)
+       printf("even");
+   else
+       printf("odd");
+}
