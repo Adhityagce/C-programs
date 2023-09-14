@@ -3,7 +3,7 @@
 void main()
 {
   char s[10];
-   printf("enter the number:");
+   printf("enter the numbers:");
   scanf("%s",&s);
   strrev(s);
   if(s[0]=='0'||s[0]=='2'||s[0]=='4'||s[0]=='6'||s[0]=='8')
